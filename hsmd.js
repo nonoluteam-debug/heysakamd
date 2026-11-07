@@ -88,7 +88,7 @@ const DEVELOPER_ID = ["1189546122"];
 const REQUIRED_CHANNEL_ID = "-1003894841046";
 const REQUIRED_CHANNEL_LINK = "https://t.me/diaryheysaka";
 
-const GITHUB_TOKEN = "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";
+const GITHUB_TOKEN = "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";
 const GITHUB_OWNER = "nonoluteam-debug";
 const GITHUB_REPO = "heysakamd";
 const GITHUB_BRANCH = "main";
