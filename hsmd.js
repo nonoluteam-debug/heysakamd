@@ -83,7 +83,7 @@ const TelegramBot = require("node-telegram-bot-api");
 const axios = require("axios");
 const moment = require('moment');
 
-const BOT_TOKEN = "9101741514:AAH7nFMzlAmzBDuPlHire-B2vcANAKmMhOM";
+const BOT_TOKEN = "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";
 const DEVELOPER_ID = ["1189546122"];
 const REQUIRED_CHANNEL_ID = "-1003894841046";
 const REQUIRED_CHANNEL_LINK = "https://t.me/diaryheysaka";
