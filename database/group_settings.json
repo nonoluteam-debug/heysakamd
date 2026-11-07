@@ -1,5 +1,6 @@
 {
   "-1004373269708": {
-    "welcome": true
+    "welcome": true,
+    "welcomeMsg": "on"
   }
 }
