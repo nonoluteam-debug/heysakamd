@@ -1,3 +1,5 @@
+const config = require("./hello.js");
+
 const {
     default: makeWASocket,
     useMultiFileAuthState,
@@ -83,15 +85,15 @@ const TelegramBot = require("node-telegram-bot-api");
 const axios = require("axios");
 const moment = require('moment');
 
-const BOT_TOKEN = "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";
-const DEVELOPER_ID = ["1189546122"];
-const REQUIRED_CHANNEL_ID = "-1003894841046";
-const REQUIRED_CHANNEL_LINK = "https://t.me/diaryheysaka";
+const BOT_TOKEN = config.BOT_TOKEN;
+const DEVELOPER_ID = config.DEVELOPER_ID || [];
+const REQUIRED_CHANNEL_ID = config.REQUIRED_CHANNEL_ID;
+const REQUIRED_CHANNEL_LINK = config.REQUIRED_CHANNEL_LINK;
 
-const GITHUB_TOKEN = "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";
-const GITHUB_OWNER = "nonoluteam-debug";
-const GITHUB_REPO = "heysakamd";
-const GITHUB_BRANCH = "main";
+const GITHUB_TOKEN = config.GITHUB_TOKEN;
+const GITHUB_OWNER = config.GITHUB_OWNER;
+const GITHUB_REPO = config.GITHUB_REPO;
+const GITHUB_BRANCH = config.GITHUB_BRANCH || "main";
 const GITHUB_API = "https://api.github.com";
 
 const DATABASE_DIR = "./database";
@@ -477,6 +479,39 @@ ${rowsHtml}
         ["number", botNumber],
         ["status", "successfully connected"]
       ]);
+      
+      sock.ev.on('group-participants.update', async (update) => {
+        try {
+          const { id, participants, action } = update;
+          const settings = groupSettings[id] || {};
+          if (action === 'add' && settings.welcome) {
+            for (const participant of participants) {
+              let msg = settings.welcomeMsg || 'welcome {user} to {group}!';
+              try {
+                const meta = await sock.groupMetadata(id);
+                msg = msg.replace(/{user}/g, `@${participant.split('@')[0]}`).replace(/{group}/g, meta.subject);
+              } catch (_) {
+                msg = msg.replace(/{user}/g, `@${participant.split('@')[0]}`);
+              }
+              await sock.sendMessage(id, { text: msg, mentions: [participant] });
+            }
+          } else if (action === 'remove' && settings.welcome) {
+            for (const participant of participants) {
+              let msg = settings.goodbyeMsg || 'goodbye {user} from {group}!';
+              try {
+                const meta = await sock.groupMetadata(id);
+                msg = msg.replace(/{user}/g, `@${participant.split('@')[0]}`).replace(/{group}/g, meta.subject);
+              } catch (_) {
+                msg = msg.replace(/{user}/g, `@${participant.split('@')[0]}`);
+              }
+              await sock.sendMessage(id, { text: msg, mentions: [participant] });
+            }
+          }
+        } catch (e) {
+          console.error("group-participants update error:", e.message);
+        }
+      });
+
     } else if (connection === "connecting") {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       try {
