@@ -4,7 +4,6 @@
     "amount": 10000,
     "duration": 9999,
     "isOwner": false,
-    "status": "waiting_confirmation",
-    "proof": "AgACAgUAAxkBAAMZau_ZaRHYBi1GuYSoNE2D6A7m2y4AAvsUaxst5IFX3-mr74ceTZgBAAMCAAN5AAM9BA"
+    "status": "pending"
   }
 ]
