@@ -1,6 +1,7 @@
 {
   "-1004373269708": {
     "welcome": true,
-    "welcomeMsg": "mpruy"
+    "welcomeMsg": "mpruy",
+    "goodbyeMsg": "mpruy"
   }
 }
