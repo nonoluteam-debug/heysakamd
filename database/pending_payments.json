@@ -26,5 +26,11 @@
     "duration": 8,
     "isOwner": false,
     "status": "pending"
+  },
+  {
+    "userId": "8517150569",
+    "amount": 25000,
+    "isOwner": true,
+    "status": "pending"
   }
 ]
